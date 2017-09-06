@@ -19,11 +19,13 @@ server {
     # Your Django project's media files - amend as required
     location /media  {
         alias /home/django/django_project/django_project/media;
+        alias /home/django/django_project/routing/media;
     }
 
     # your Django project's static files - amend as required
     location /static {
         alias /home/django/django_project/django_project/static;
+        alias /home/django/django_project/routing/static;
     }
 
     # Proxy the static assests for the Django Admin panel
