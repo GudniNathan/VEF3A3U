@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ["gng.is", "www.gng.is", "osom.is"]
 # Application definition
 
 INSTALLED_APPS = (
-    'MVC.apps.MVCCOnfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,9 +55,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'routing/templates'),
-                 os.path.join(BASE_DIR, 'MVC/templates')
-                 ],
+        'DIRS': [os.path.join(BASE_DIR, 'routing/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,20 +74,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django',
-        'USER': 'django',
-        'PASSWORD': '1646a9e05e0de611508fc76a473d198f',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -122,8 +109,7 @@ STATIC_URL = '/static/' # You may find this is already defined as such.
 
 STATICFILES_DIRS = (
     STATIC_PATH,
-    os.path.join(BASE_DIR, 'routing/static'),
-    os.path.join(BASE_DIR, 'MVC/static'),
+    os.path.join(BASE_DIR,'routing/static'),
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

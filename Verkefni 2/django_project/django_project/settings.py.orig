@@ -25,13 +25,12 @@ SECRET_KEY = 'md8buijsyo0m0gs$nhi_^%=yr5^p$nmvroccxvs2ghlenldpc4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["gng.is", "www.gng.is", "osom.is"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = (
-    'MVC.apps.MVCCOnfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,9 +55,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'routing/templates'),
-                 os.path.join(BASE_DIR, 'MVC/templates')
-                 ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,20 +74,10 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django',
-        'USER': 'django',
-        'PASSWORD': '1646a9e05e0de611508fc76a473d198f',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -112,38 +99,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
-
-STATIC_PATH = os.path.join(BASE_DIR,'static')
-
-STATIC_URL = '/static/' # You may find this is already defined as such.
-
-STATICFILES_DIRS = (
-    STATIC_PATH,
-    os.path.join(BASE_DIR, 'routing/static'),
-    os.path.join(BASE_DIR, 'MVC/static'),
-)
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-# Allow Django from all hosts. This snippet is installed from
-# /var/lib/digitalocean/allow_hosts.py
-
-import os
-import netifaces
-
-# Find out what the IP addresses are at run time
-# This is necessary because otherwise Gunicorn will reject the connections
-def ip_addresses():
-    ip_list = []
-    for interface in netifaces.interfaces():
-        addrs = netifaces.ifaddresses(interface)
-        for x in (netifaces.AF_INET, netifaces.AF_INET6):
-            if x in addrs:
-                ip_list.append(addrs[x][0]['addr'])
-    return ip_list
-
-# Discover our IP address
-#ALLOWED_HOSTS = ip_addresses()
-
+STATIC_URL = '/static/'

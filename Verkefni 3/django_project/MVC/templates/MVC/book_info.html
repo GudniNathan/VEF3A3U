@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{book.book_title}} upplýsingar</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'MVC/styles.css' %}" />
+</head>
+<body>
+    <h1>{{book.book_title}} upplýsingar</h1>
+    <div>
+        <h2>Bókin {{book.book_title}} var skrifuð af {{book.book_author}} </h2>
+        <table>
+            <tr>
+                <th>Titill</th>
+                <th>Höfundur</th>
+                <th>Útgefandi</th>
+                <th>Ár</th>
+            </tr>
+            <tr>
+                <td>{{book.book_title}}</td>
+                <td>{{book.book_author}}</td>
+                <td>{{book.book_publisher}}</td>
+                <td>{{book.book_year}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+*{box-sizing: border-box;}
+body, html{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+h1{
+	text-align: center;
+	display: block;
+	width: 100%;
+	color: #333;
+	background-color: #3399ff;
+	margin: 0;
+	padding: 1em;
+}
+div{
+	margin: 0 auto;
+	max-width: 30em;
+	border: 1px solid black;
+	border-top: none;
+}
+ul{
+	margin: 0;
+	padding: 1em;
+}
+img{
+	max-width: 100%;
+}
