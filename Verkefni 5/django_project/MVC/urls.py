@@ -17,8 +17,6 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    url(r'^(?i)jobs/$', views.jobs, name='jobs'),
-    url(r'^(?i)bio/$', views.bio, name='bio'),
-    url(r'^(?i)pics/$', views.pics, name='pics'),
     url(r'^$', views.index, name='index'),
+    url(r'^(?P<book_id>[0-9]+)/$', views.detail, name='detail'),
 ]

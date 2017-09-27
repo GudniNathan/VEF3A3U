@@ -3,9 +3,8 @@ body, html{
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	font-size: 1.1em;
 }
-header{
+h1{
 	text-align: center;
 	display: block;
 	width: 100%;
@@ -14,17 +13,16 @@ header{
 	margin: 0;
 	padding: 1em;
 }
+div{
+	margin: 0 auto;
+	max-width: 30em;
+	border: 1px solid black;
+	border-top: none;
+}
 ul{
 	margin: 0;
 	padding: 1em;
 }
 img{
 	max-width: 100%;
-}
-div{
-    padding-left: 2em;
-    padding-right: 2em;
-}
-table, th, td {
-    border: 1px solid black;
 }
