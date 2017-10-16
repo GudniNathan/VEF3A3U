@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [".gng.is"]
 
 INSTALLED_APPS = (
     'MVC.apps.MVCCOnfig',
+    'lokaverkefni.apps.LokaverkefniConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,6 +92,14 @@ DATABASES = {
         'PASSWORD': '1646a9e05e0de611508fc76a473d198f',
         'HOST': 'localhost',
         'PORT': '',
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ProgressTracker',
+        'USER': 'gudninatan',
+        'PASSWORD': 'mypassword',
+        'HOST': 'mysql.gng.is',
+        'PORT': '',
     }
 }
 
@@ -113,15 +122,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+#Where the static files are stored for use by django
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 
-STATIC_PATH = os.path.join(BASE_DIR,'static')
+#STATIC_PATH = os.path.join(BASE_DIR,'static')
 
 STATIC_URL = '/static/' # You may find this is already defined as such.
 
 STATICFILES_DIRS = (
-    STATIC_PATH,
+    # STATIC_PATH,
     os.path.join(BASE_DIR, 'routing/static'),
     os.path.join(BASE_DIR, 'MVC/static'),
 )
@@ -129,6 +140,8 @@ STATICFILES_DIRS = (
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Allow Django from all hosts. This snippet is installed from
 # /var/lib/digitalocean/allow_hosts.py
+
+ASSETS_ROOT = STATICFILES_DIRS
 
 import os
 import netifaces

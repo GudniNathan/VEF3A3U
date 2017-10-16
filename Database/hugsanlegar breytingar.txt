@@ -1,0 +1,6 @@
+Database breytingar:
+
+Composite key í restrictors töflu. Django líkar ekki við composite key.
+https://code.djangoproject.com/wiki/MultipleColumnPrimaryKeys
+
+Nöfn á töflum ættu að vera í eintölu.
