@@ -14,15 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
-from routing import urls as routing_urls
-from MVC import urls as MVC_urls
-from lokaverkefni import urls as lokaverkefni_urls
-
+from . import views
 
 urlpatterns = [
-    url(r'^(?i)admin/', include(admin.site.urls)),
-    url(r'^(?i)MVC/', include(MVC_urls, namespace='MVC', app_name='MVC')), #This is how app urls should be
-    url(r'^(?i)routing/', include(routing_urls)),
-    url(r'^(?i)lokaverkefni/', include(lokaverkefni_urls)),
+    url(r'^$', views.index, name='index'),
+    url(r'^chart/$', views.chart, name='chart'),
 ]

@@ -1,0 +1,11 @@
+{% extends "lokaverkefni/base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block header %}<h2>Lokaverkefni</h2>{% endblock %}
+
+{% block content %}
+        {% for set in data %}
+            <p>{{set}}</p>
+        {% endfor %}
+{% endblock %}

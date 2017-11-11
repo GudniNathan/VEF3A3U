@@ -1,0 +1,26 @@
+{% extends "lokaverkefni/base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block header %}<h2>Lokaverkefni</h2>{% endblock %}
+
+{% block content %}
+    <form method="post" action="" id="loginForm">
+        {% csrf_token %}
+        <label>Innskrá</label>
+            <div class="form-group">
+                <p for="login_username">Kennitala:</p>
+                <input class="form-control input-md" id="login_username" name="login_username" placeholder="Kennitala*" required="" pattern="^[0-9]{10}$" title="Kennitala, án bandstriks" type="text">
+            </div>
+            <div class="form-group">
+                <p for="login_password">Lykilorð:</p>
+                <input class="form-control input-md" id="login_password" name="login_password" placeholder="Lykilorð*" required="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,255}$" title="Lykilorð" type="password">
+            </div>
+        <button name="sendlogin" type="submit" class="btn btn-primary">Skrá inn</button>
+        <p><i>*Fylla þarf út þessa reiti</i></p>
+        <p><a href="#">Ég gleymdi lykilorðinu mínu.</a></p>
+    </form>
+    {% if postData %}
+    <p>{{ postData }}</p>
+    {% endif %}
+{% endblock %}

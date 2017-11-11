@@ -25,7 +25,7 @@ server {
 
     # your Django project's static files - amend as required
     location /static {
-	    alias /home/django/django_project/django_project/static;
+	    alias /home/django/django_project/static;
     }
 
     # Proxy the static assests for the Django Admin panel

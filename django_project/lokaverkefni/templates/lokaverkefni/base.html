@@ -1,0 +1,24 @@
+{% load staticfiles %}{% load sass_tags %}
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <title>Lokaverkefni - {% block title %}Index{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="This is an example of a meta description. This will often show up in search results.">
+    <meta name="robots" content="noindex,nofollow">
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'lokaverkefni/styles.css' %}" />
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+    <header> {% block header %}<h2>MVC Verkefni</h2>{% endblock %}</header>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer> {% block footer %}<h3>Guðni Natan Gunnarsson, 2017{% if year > 2017 %} - {{year}} {% endif %}</h3>{% endblock %} </footer>
+</body>
+</html>

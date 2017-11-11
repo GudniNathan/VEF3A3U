@@ -7,6 +7,7 @@ from .models import Book
 from django.core.exceptions import ObjectDoesNotExist
 
 
+
 # Create your views here.
 def index(request):
     path = 'MVC/index.html'

@@ -1,0 +1,49 @@
+[{
+  "id": "VEF2A3U",
+  "precursors": [],
+  "completed": false
+}, {
+  "id": "VEF2B3U",
+  "precursors": [],
+  "completed": false
+}, {
+  "id": "VEF3A3U",
+  "precursors": ["VEF2B3U", "VEF2A3U"],
+  "completed": false
+}, {
+  "id": "VEF3B3U",
+  "precursors": ["VEF2A3U", "VEF2B3U"],
+  "completed": false
+}, {
+  "id": "FINAL",
+  "precursors": ["VEF3B3U"],
+  "completed": false
+}, {
+  "id": "GSF2A3U",
+  "precursors": [],
+  "completed": true
+}, {
+  "id": "GSF3A3U",
+  "precursors": ["GSF2A3U"],
+  "completed": false
+}, {
+  "id": "GSF4A3U",
+  "precursors": ["GSF3A3U"],
+  "completed": false
+}, {
+  "id": "GSF4B3U",
+  "precursors": ["GSF3A3U"],
+  "completed": false
+}, {
+  "id": "GSF4C3U",
+  "precursors": ["GSF3A3U"],
+  "completed": false
+}, {
+  "id": "siouisu",
+  "precursors": [],
+  "completed": false
+}, {
+  "id": "siouisu2",
+  "precursors": ["siouisu", "VEF2A3U", "GSF3A3U"],
+  "completed": false
+}]

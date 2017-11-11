@@ -52,7 +52,7 @@ create table Courses
 (
 	courseNumber char(11),
 	courseName varchar(75) not null,
-	courseCredits tinyint(4) not null default 3,
+	courseCredits int not null default 3,
 	constraint course_PK primary key(courseNumber)
 );
 
@@ -63,10 +63,12 @@ create table Courses
 -- 3: Staðgengill				-- Þessi áfangi kemur í staðinn
 create table Restrictors 
 (
+	ID int auto_increment,
 	restrictorID char(11) not null,
     courseNumber char(11) not null,
 	restrictorType char(1) default '1',
-	constraint restrictor_PK primary key (courseNumber,restrictorID),
+	constraint restrictor_PK primary key(ID),
+	constraint restrictor_courseNum_UK unique key (courseNumber,restrictorID),
 	constraint course_course_FK foreign key (courseNumber) references Courses (courseNumber),
 	constraint restrictor_course_FK foreign key (courseNumber) references Courses (courseNumber)
 );
@@ -74,11 +76,13 @@ create table Restrictors
 -- Courses belonging to a certain track. A track can belong to more then one track(N:M)
 create table TrackCourses
 (
+	ID int auto_increment,
 	trackID int not null,
     courseNumber char(10) not null,
     semesterOfStudy tinyint unsigned null,
     mandatory tinyint unsigned,
-    constraint trackcourse_PK primary key(trackID,courseNumber),
+	constraint trackcourse_PK primary key(ID),
+    constraint trackcourse_UQ unique key(trackID,courseNumber),
     constraint track_course_tracks_FK foreign key(trackID) references Tracks(trackID),
     constraint track_course_courses_FK foreign key(courseNumber) references Courses(courseNumber)
 );
@@ -104,10 +108,9 @@ create table StudentCourses
     grade tinyint,
     semesterTaken int not null,
     studentID int not null,
-    trackID int not null,
     courseNumber char(10) not null,
     constraint studentcourse_PK primary key(studentCourseID),
     constraint studentcourse_semester foreign key(semesterTaken) references Semesters(semesterID),
     constraint studentcourse_student foreign key(studentID) references Students(studentID),
-    constraint studentcourse_trackcourse_FK foreign key(trackID,courseNumber) references TrackCourses(trackID,courseNumber)
+    constraint studentcourse_trackcourse_FK foreign key(courseNumber) references TrackCourses(courseNumber)
 );

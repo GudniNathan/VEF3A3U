@@ -30,8 +30,6 @@ ALLOWED_HOSTS = [".gng.is"]
 # Application definition
 
 INSTALLED_APPS = (
-    'MVC.apps.MVCCOnfig',
-    'lokaverkefni.apps.LokaverkefniConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sass_processor',
+    'MVC.apps.MVCCOnfig',
+    'lokaverkefni.apps.LokaverkefniConfig',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,6 +103,7 @@ DATABASES = {
     }
 }
 
+DATABASE_ROUTERS = ['lokaverkefni.apps.lokaverkefniRouter']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -135,6 +136,7 @@ STATICFILES_DIRS = (
     # STATIC_PATH,
     os.path.join(BASE_DIR, 'routing/static'),
     os.path.join(BASE_DIR, 'MVC/static'),
+    os.path.join(BASE_DIR, 'lokaverkefni/static'),
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
