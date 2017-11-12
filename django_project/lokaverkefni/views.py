@@ -5,7 +5,7 @@ from datetime import date
 from . import validateKennitala
 
 from .models import Courses
-from django.db import connection
+from django.db import connections
 
 # Create your views here.
 def index(request):
@@ -29,10 +29,12 @@ def index(request):
 
 def chart(request):
     path = 'lokaverkefni/chart.html'
-    courses = Courses.objects.all()
+    with connections['mysql'].cursor() as cursor:
+        cursor.execute("SELECT courseJSON()")
+        row = cursor.fetchone()
     context = {
         "year": date.today().year,
-        "data": courses,
+        "data": row[0],
     }
     return render(request, path, context)
 

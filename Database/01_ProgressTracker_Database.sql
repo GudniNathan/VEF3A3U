@@ -60,7 +60,7 @@ create table Courses
 -- 1: Undanfari				-- Þessi áfangi er undanfari 
 -- 2: Samhliða					-- Þennan áfanga má taka samhliða
 -- 3: Samhliða(bundið)		-- Þennan áfanga VERÐUR að taka samhliða
--- 3: Staðgengill				-- Þessi áfangi kemur í staðinn
+-- 4: Staðgengill				-- Þessi áfangi kemur í staðinn
 create table Restrictors 
 (
 	ID int auto_increment,

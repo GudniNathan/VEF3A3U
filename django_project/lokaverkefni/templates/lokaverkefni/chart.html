@@ -1,11 +1,19 @@
 {% extends "lokaverkefni/base.html" %}
+{% load staticfiles%}
 
 {% block title %}Index{% endblock %}
 
 {% block header %}<h2>Lokaverkefni</h2>{% endblock %}
 
 {% block content %}
-        {% for set in data %}
-            <p>{{set}}</p>
-        {% endfor %}
+	<main id="graph">
+		<svg width=500></svg>
+		<button id="submitCourses">Submit</button>
+	</main>
+{% endblock %}
+{% block bodyFoot %}
+    <script>let data = "{{data}}"; let treeJson = JSON.parse(data.replace(/&quot;/g,'"')); console.log(treeJson);</script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="{% static 'lokaverkefni/dagre-d3v4.min.js' %}"></script>
+    <script src="{% static 'lokaverkefni/renderGraph.js' %}"></script>
 {% endblock %}
