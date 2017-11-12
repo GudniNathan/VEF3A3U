@@ -39,7 +39,7 @@ def chart(request):
     return render(request, path, context)
 
 def nextSemester(request):
-    path = 'lokaverkefni/index.html'
+    path = 'lokaverkefni/nextSemester.html'
     context = {
         "year": date.today().year,
     }

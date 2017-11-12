@@ -7,21 +7,16 @@
 		  .setDefaultEdgeLabel(function() { return {}; });
 
 	let svg;
-	let jsonData;
-
 	function main(argument) {
-		let treeJson = d3.json("data.json", function(error, data) {
-			if (!error) {
-				jsonData = data;
-				createGraph(data);
-				postRender();
-			}
-			else{
-				console.log("Error fetching JSON");
-				render();
-				postRender();
-			}
-		});
+		if (jsonData) {
+			createGraph(jsonData);
+			postRender();
+		}
+		else{
+			console.log("Error fetching JSON");
+			render();
+			postRender();
+		}
 		function postRender(argument) {
 			// body...
 			if (!svg) {
@@ -35,7 +30,7 @@
 			    let node = crawlToNode(event.target, "node")
 			    if (node && node.classList.contains("availableCourse")) {
 			    	//do something
-			    	courseUpdate(node);
+			    	courseClickUpdate(node);
 			    }
 			}, true);
 
@@ -50,12 +45,18 @@
 
 		document.querySelector("#submitCourses").addEventListener("click", function (event) {
 			// body...
-			collectSelectedCourses();
+			let selected = collectSelectedCourses();
+			for (var i = selected.length - 1; i >= 0; i--) {
+				let node = getJSONNodeByID(selected[i]);
+				node.completed = true;
+			}
+			updateGraph();
+			post(selected);
 
 		});
 	}
 
-	function courseUpdate(courseNode) {
+	function courseClickUpdate(courseNode) {
 		// body...
 		courseNode.classList.toggle("selectedCourse");
 
@@ -86,7 +87,6 @@
 			switch(child.type){
 				case '2':
 					child_node = getJSONNodeByID(child.id);
-					console.log(child_node.precursors);
 					let this_pre = child_node.precursors.find(function (x) {
 						// body...
 						return x.id == jsonNode.id;
@@ -97,11 +97,11 @@
 					else{
 						child_node.precursors.push({"id": jsonNode.id, "type": "2"});
 					}
-					console.log(child_node.precursors);
 					break;
 				case '3':
 					child_node = getJSONNodeByID(child.id);
-					child_node.node.classList.toggle("selectedCourse", "availableCourse");
+					child_node.node.classList.toggle("selectedCourse");
+					child_node.node.classList.toggle("availableCourse");
 					break;
 				default:
 					break;
@@ -142,16 +142,20 @@
 	    		courses.push(v);
 	    	}
 		});
-		console.log(courses);
-
+		return courses;
 	}
 
-	function createGraph(jsonData) {
+	function createGraph(jsonData) { //jesús kristur, miskunna þú mér fyrir þennan kóða.
 		// body...
+		let updateNodesPre = [];
+		let updateNodesChild = [];
 
 		for (let k = jsonData.length - 1; k >= 0; k--) {
 			if (!jsonData[k].children) {
 				jsonData[k].children = [];
+			}
+			if (!jsonData[k].completed) {
+				jsonData[k].completed = false;
 			}
 			for (var l = jsonData[k].precursors.length - 1; l >= 0; l--) {
 				let pre = jsonData[k].precursors[l];
@@ -162,7 +166,6 @@
 				pre_node.children.push({'id': jsonData[k].id, 'type': pre.type});
 			}
 		}
-
 
 		for (let i = jsonData.length - 1; i >= 0; i--) {
 			let node = jsonData[i];
@@ -175,22 +178,54 @@
 				for (let j = node.precursors.length - 1; j >= 0; j--) {
 					let parent = node.precursors[j].id;
 					if (node.precursors[j].type == '3') {
-						let tempid;
-						tempid = `${node.id}-${node.precursors[j].id}`;
-						//g.setNode(tempid, {});
-						console.log(tempid);
-						//g.setParent(node.id, tempid);
-						//g.setParent(node.precursors[j].id, tempid);
-						g.setEdge(parent, node.id, {curve: d3.curveBasis});
-						//g.setEdge(node.id, parent, {curve: d3.curveBasis});
-						node.child = parent;
+						let c_node = getJSONNodeByID(node.precursors[j].id);
+						node.children.push.apply(node.children, c_node.children);
+						c_node.children = [{"id": node.id, "type": '3'}];
+
+						let this_node = node.children.find(function (x) {
+							return x.id == node.id;
+						});
+						node.children = node.children.filter(item => item !== this_node);
+						for (var x = node.children.length - 1; x >= 0; x--) {
+							updateNodesChild.push([node.children[x].id, node, c_node]);
+						}
 					}
 				}
+			}
+			if (node.children.length > 0) {
 				for (var j = node.children.length - 1; j >= 0; j--) {
 					if (node.children[j].type == '3') {
 						let child = node.children[j].id;
-						node.parent = child;
+						let c_node = getJSONNodeByID(child);
+						node.precursors.push.apply(node.precursors, c_node.precursors);
+						c_node.precursors = [{"id": node.id, "type": '3'}];
+
+						let this_node = node.precursors.find(function (x) {
+							return x.id == node.id;
+						});
+						node.precursors = node.precursors.filter(item => item !== this_node);
+						for (var x = c_node.children.length - 1; x >= 0; x--) {
+							updateNodesPre.push([c_node.children[x].id, node, c_node]);
+						}
 					}
+				}
+			}
+		}
+		for (var i = updateNodesPre.length - 1; i >= 0; i--) {
+			let info = updateNodesPre[i];
+			let n = getJSONNodeByID(info[0]);
+			for (var k = n.children.length - 1; k >= 0; k--) {
+				if(n.children[k].id == info[2].id){
+					n.children[k].id = info[1].id;
+				}
+			}
+		}
+		for (var i = updateNodesChild.length - 1; i >= 0; i--) {
+			let info = updateNodesChild[i];
+			let n = getJSONNodeByID(info[0]);
+			for (var k = n.precursors.length - 1; k >= 0; k--) {
+				if(n.precursors[k].id == info[2].id){
+					n.precursors[k].id = info[1].id;
 				}
 			}
 		}
@@ -198,27 +233,59 @@
 			let node = jsonData[i];
 			for (let j = node.precursors.length - 1; j >= 0; j--) {
 				let parent = node.precursors[j];
-				if (node.precursors[j].type != '3') {
-					let tempid = node.id;
-					let parent_node = getJSONNodeByID(parent.id);
-					if (node.child) {
-						tempid = node.child;
-						console.log(tempid);
-
-					}
-					else if(parent_node.parent){
-						parent = {"id": parent_node.parent};
-						console.log(parent.id);
-					}
-					if (node.id == "FORR3FL05EU" || node.id == "ROBO2RG05AU") {
-						console.log();
-					}
-					g.setEdge(parent.id, tempid, {curve: d3.curveBasis});
+				let tempid = node.id;
+				let parent_node = getJSONNodeByID(parent.id);
+				let samLabel;
+				if (parent.type == '3') {
+					samLabel = "(samfari)";
 				}
+				g.setEdge(parent.id, tempid, {curve: d3.curveBasis, label: samLabel});
+			}
+		}
+		console.log(jsonData);
+
+		render();
+	}
+
+	function updateGraph() {
+		// body...
+		for (let i = jsonData.length - 1; i >= 0; i--) {
+			let node = jsonData[i]
+			let precursors = jsonData[i].precursors;
+			let open = true;
+			if (node.completed) {
+				node.node.classList.add("completedCourse");
+				node.node.classList.remove("availableCourse");
+				node.node.classList.remove("selectedCourse");
+				continue;
+			}
+			for (let j = precursors.length - 1; j >= 0; j--) {
+				let node = getJSONNodeByID(precursors[j].id);
+				if (!node.completed) {
+					open = false;
+					break;
+				}
+			}
+			if (open) {
+				node.node.classList.add("availableCourse");
 			}
 		}
 
-		render();
+	}
+
+	function post(params, path="", method="post") {
+	    var form = document.getElementById('courseDataForm');
+	    for(var key in params) {
+	        if(params.hasOwnProperty(key)) {
+	            var hiddenField = document.createElement("input");
+	            hiddenField.setAttribute("type", "hidden");
+	            hiddenField.setAttribute("name", key);
+	            hiddenField.setAttribute("value", params[key]);
+
+	            form.appendChild(hiddenField);
+	        }
+	    }
+	    form.submit();
 	}
 
 	function render() {
@@ -276,6 +343,7 @@
 		});
 	}
 
-	window.addEventListener("load", main, true);
+	//window.addEventListener("load", main, true);
 	//window.addEventListener("resize", render, true);
+	main();
 })();

@@ -28,6 +28,12 @@ div{
 table, th, td {
     border: 1px solid black;
 }
+div#links a{
+	display: inline-block;
+	background-color: #adfafd;
+	padding: 0.5em;
+	border-radius: 2em;
+}
 #graph{
 	min-height: 30em;
 }
@@ -88,4 +94,12 @@ tspan{
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
     cursor: default;
+}
+footer{
+	width: 100%;
+	background-color: #3399ff;
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+	display: block;
 }
