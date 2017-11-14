@@ -1,0 +1,138 @@
+//Varaiable overrides
+$enable-rounded: true;
+
+$theme-colors: (
+  "primary": #0074d9,
+  "danger": #ff4136
+);
+
+//Import
+@import "lokaverkefni/node_modules/bootstrap/scss/bootstrap";
+
+
+//Custom css
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 1.1em;
+}
+
+header {
+  text-align: center;
+  display: block;
+  width: 100%;
+  color: #333;
+  background-color: #3399ff;
+  margin: 0;
+  padding: 1em;
+}
+
+ul {
+  margin: 0;
+  padding: 1em;
+}
+
+img {
+  max-width: 100%;
+}
+
+div {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+table, th, td {
+  border: 1px solid $dark;
+}
+
+div#links a {
+  display: inline-block;
+  background-color: #adfafd;
+  padding: 0.5em;
+  border-radius: 2em;
+  color: black;
+  text-decoration: none;
+}
+
+#graph {
+  min-height: 30em;
+}
+
+.clusters rect {
+  fill: $info;
+  stroke: $gray-800;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+
+.node rect {
+  stroke: #999;
+  fill: #fff;
+  stroke-width: 1.5px;
+}
+
+.edgePath path {
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+svg {
+  width: 100%;
+  min-height: inherit;
+}
+
+.course {
+  rect {
+    margin: 2em;
+    fill: lightgray;
+  }
+  &:not(.availableCourse) {
+    fill: gray;
+    &.completedCourse {
+      fill: white;
+    }
+  }
+}
+
+.availableCourse rect {
+  fill: white;
+}
+
+.failedCourse rect {
+  fill: red;
+}
+
+.completedCourse rect {
+  fill: green;
+}
+
+.selectedCourse rect {
+  fill: cyan;
+}
+
+tspan {
+  -webkit-touch-callout: none;  /* iOS Safari */
+  -webkit-user-select: none;  /* Safari */
+  -khtml-user-select: none;  /* Konqueror HTML */
+  -moz-user-select: none;  /* Firefox */
+  -ms-user-select: none;  /* Internet Explorer/Edge */
+    /* Non-prefixed version, currently
+     supported by Chrome and Opera */
+  user-select: none;
+  cursor: default;
+}
+
+footer {
+  width: 100%;
+  background-color: #3399ff;
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  display: block;
+}

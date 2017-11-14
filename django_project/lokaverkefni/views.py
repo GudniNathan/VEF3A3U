@@ -34,7 +34,7 @@ def chart(request):
         row = cursor.fetchone()
     context = {
         "year": date.today().year,
-        "data": row[0],
+        "data": u"%s" % (row[0]),
     }
     return render(request, path, context)
 

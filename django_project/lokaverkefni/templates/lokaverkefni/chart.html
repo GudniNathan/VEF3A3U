@@ -13,7 +13,7 @@
     <form method="post" action="" id="courseDataForm">{% csrf_token %}</form>
 {% endblock %}
 {% block bodyFoot %}
-    <script>let data = "{{data}}"; let jsonData = JSON.parse(data.replace(/&quot;/g,'"')); console.log(jsonData);</script>
+    <script>let jsonData = JSON.parse('{{data|safe}}'); console.log(jsonData);</script>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="{% static 'lokaverkefni/dagre-d3v4.min.js' %}"></script>
     <script src="{% static 'lokaverkefni/renderGraph.js' %}"></script>

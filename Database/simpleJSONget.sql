@@ -1,7 +1,7 @@
 DROP FUNCTION IF EXISTS courseJSON;
 DELIMITER //
 
-CREATE FUNCTION courseJSON() RETURNS JSON
+CREATE FUNCTION courseJSON() RETURNS TEXT
 BEGIN
     DECLARE j JSON;
 	DECLARE v_finished INTEGER DEFAULT 0;
@@ -60,7 +60,7 @@ BEGIN
 			SET j = JSON_ARRAY_APPEND(j, '$', JSON_OBJECT('id', cur_course, 'precursors', restrictorArray));                                        
 		END LOOP courses_loop;
 	CLOSE course_cursor;
-    RETURN(j);
+    RETURN(JSON_UNQUOTE(j));
 END//
 
 DELIMITER ;

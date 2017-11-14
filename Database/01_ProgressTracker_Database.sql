@@ -48,11 +48,14 @@ create table Tracks
 );
 
 -- All the courses in the database
+-- minCredits: The minimum number of credits you are required to have to be able to take this course.
+-- minCredits works independantly per division.
 create table Courses 
 (
 	courseNumber char(11),
 	courseName varchar(75) not null,
 	courseCredits int not null default 3,
+    minCredits int not null default 0,
 	constraint course_PK primary key(courseNumber)
 );
 

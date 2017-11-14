@@ -105,6 +105,8 @@ DATABASES = {
 
 DATABASE_ROUTERS = ['lokaverkefni.apps.lokaverkefniRouter']
 
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -138,6 +140,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'MVC/static'),
     os.path.join(BASE_DIR, 'lokaverkefni/static'),
 )
+
+#Sass compiler
+SASS_PRECISION = 8
+SASS_OUTPUT_STYLE = 'compact'
+SASS_PROCESSOR_AUTO_INCLUDE = True
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+SASS_PROCESSOR_ENABLED = True
+
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    os.path.join(PROJECT_DIR, 'extra-styles/scss'),
+    os.path.join(PROJECT_DIR, 'node_modules'),
+]
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # Allow Django from all hosts. This snippet is installed from
