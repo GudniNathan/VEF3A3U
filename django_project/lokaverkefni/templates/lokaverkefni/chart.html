@@ -3,12 +3,14 @@
 
 {% block title %}Index{% endblock %}
 
-{% block header %}<h2>Lokaverkefni</h2>{% endblock %}
-
 {% block content %}
 	<main id="graph">
-		<svg width=500></svg>
-		<button id="submitCourses">Submit</button>
+        <div>
+            <svg width=500 class="border border-secondary rounded"></svg>
+        </div>
+        <div>
+            <button id="submitCourses" class="btn btn-primary">Submit</button>
+        </div>
 	</main>
     <form method="post" action="" id="courseDataForm">{% csrf_token %}</form>
 {% endblock %}

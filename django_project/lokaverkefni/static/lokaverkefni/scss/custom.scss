@@ -14,9 +14,10 @@ $theme-colors: (
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-size: 1.1em;
 }
+html{height:100%;}
+body{min-height:100%;}
 
 header {
   text-align: center;
@@ -27,23 +28,8 @@ header {
   margin: 0;
   padding: 1em;
 }
-
-ul {
-  margin: 0;
-  padding: 1em;
-}
-
 img {
   max-width: 100%;
-}
-
-div {
-  padding-left: 2em;
-  padding-right: 2em;
-}
-
-table, th, td {
-  border: 1px solid $dark;
 }
 
 div#links a {
@@ -64,13 +50,6 @@ div#links a {
   stroke: $gray-800;
   stroke-width: 1.5px;
 }
-
-text {
-  font-weight: 300;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
-  font-size: 14px;
-}
-
 .node rect {
   stroke: #999;
   fill: #fff;

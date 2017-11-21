@@ -2,24 +2,55 @@
 
 {% block title %}Index{% endblock %}
 
-{% block header %}<h2>Lokaverkefni</h2>{% endblock %}
-
 {% block content %}
-    <form method="post" action="" id="loginForm">
-        {% csrf_token %}
-        <label>Innskrá</label>
-            <div class="form-group">
-                <p for="login_username">Kennitala:</p>
-                <input class="form-control input-md" id="login_username" name="login_username" placeholder="Kennitala*" required="" pattern="^[0-9]{10}$" title="Kennitala, án bandstriks" type="text">
+    <main class="container-fluid">
+        <div class="row">
+        <form method="post" action="#loginForm" id="loginForm" class="col-md">
+            {% csrf_token %}
+            {% if loginError %}
+            <div class="alert alert-warning" role="alert">
+                <p>{{loginError}}</p>
             </div>
-            <div class="form-group">
-                <p for="login_password">Lykilorð:</p>
-                <input class="form-control input-md" id="login_password" name="login_password" placeholder="Lykilorð*" required="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,255}$" title="Lykilorð" type="password">
+            {% endif %}
+            <legend>Innskrá</legend>
+                <div class="form-group">
+                    <p for="login_username">Kennitala:</p>
+                    <input class="form-control input-md" id="login_username" name="login_username" placeholder="Kennitala*" required="" pattern="^[0-9]{10}$" title="Kennitala, án bandstriks" type="text">
+                </div>
+                <div class="form-group">
+                    <p for="login_password">Lykilorð:</p>
+                    <input class="form-control input-md" id="login_password" name="login_password" placeholder="Lykilorð*" required="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,255}$" title="Lykilorð" type="password">
+                </div>
+            <button name="sendlogin" type="submit" class="btn btn-primary">Skrá inn</button>
+            <p class="text-muted"><i>*Fylla þarf út þessa reiti</i></p>
+            <p><a href="#">Ég gleymdi lykilorðinu mínu.</a></p>
+        </form>
+        <form method="post" action="#registerForm" id="registerForm" class="col-md">
+            {% csrf_token %}
+            {% if registerError %}
+            <div class="alert alert-warning" role="alert">
+                <p>{{registerError}}</p>
             </div>
-        <button name="sendlogin" type="submit" class="btn btn-primary">Skrá inn</button>
-        <p><i>*Fylla þarf út þessa reiti</i></p>
-        <p><a href="#">Ég gleymdi lykilorðinu mínu.</a></p>
-    </form>
+            {% endif %}
+            <legend>Nýskrá</legend>
+                <div class="form-group">
+                    <p for="register_username">Kennitala:</p>
+                    <input class="form-control input-md" id="register_username" name="register_username" placeholder="Kennitala*" required="" pattern="^[0-9]{10}$" title="Kennitala, án bandstriks" type="text">
+                </div>
+                <div class="form-group">
+                    <p for="register_password">Lykilorð:</p>
+                    <input class="form-control input-md" id="register_password" name="register_password" placeholder="Lykilorð*" required="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,255}$" title="Lykilorð" type="password">
+                </div>
+                <div class="form-group">
+                    <p for="register_password_repeat">Lykilorð (endurtekið):</p>
+                    <input class="form-control input-md" id="register_password_repeat" name="register_password_repeat" placeholder="Lykilorð (endurtekið)*" required="" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,255}$" title="Lykilorð" type="password">
+                </div>
+            <button name="sendregister" type="submit" class="btn btn-primary">Nýskrá</button>
+            <p class="text-muted"><i>*Fylla þarf út þessa reiti</i></p>
+        </form>
+        </div>
+    </main>
+
     {% if postData %}
     <p>{{ postData }}</p>
     {% endif %}

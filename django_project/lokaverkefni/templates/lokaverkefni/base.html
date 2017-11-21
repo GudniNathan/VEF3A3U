@@ -5,7 +5,7 @@
     <title>Lokaverkefni - {% block title %}Index{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="This is an example of a meta description. This will often show up in search results.">
+    <meta name="description" content="Önnum kafa - Lokaverkefni, Guðni Natan Gunnarsson, 2017">
     <meta name="robots" content="noindex,nofollow">
     <meta charset="UTF-8">
 
@@ -13,21 +13,60 @@
     {% block styles %}{% endblock %}
 </head>
 
-<body>
-    <header>
-        {% block header %}<h2>Verkefni</h2>{% endblock %}
-        <div id="links">
-            <a href="/lokaverkefni/">Index</a>
-            <a href="/lokaverkefni/chart/">Chart</a>
-            <a href="/lokaverkefni/nextSemester/">NextSemester</a>
-        </div>
-
+<body class="d-flex flex-column">
+    <header class="p-3 mb-2 bg-primary text-white">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark nav-justified rounded">
+            <a class="navbar-brand" href="#"><h3>Önnum kafa</h3></a>
+            <button class="navbar-toggler mb-1" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto justify-content-center container-fluid btn-group">
+                    {% if request.path == "/lokaverkefni/" %}
+                    <li class="nav-item active btn btn-secondary">
+                        <a class="nav-link " href="/lokaverkefni/">Heim<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/">Heim</a>
+                    </li>
+                    {% endif %}
+                    {% if request.path == "/lokaverkefni/chart/" %}
+                    <li class="nav-item active btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/chart/">Áfangakort<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/chart/">Áfangakort</a>
+                    </li>
+                    {% endif %}
+                    {% if request.path == "/lokaverkefni/nextSemester/" %}
+                    <li class="nav-item active btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/nextSemester/">Listaval<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/nextSemester/">Listaval</a>
+                    </li>
+                    {% endif %}
+                    {% if request.path == "/lokaverkefni/about/" %}
+                    <li class="nav-item active btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/nextSemester/">Um síðu<span class="sr-only">(current)</span></a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item btn btn-secondary">
+                        <a class="nav-link" href="/lokaverkefni/nextSemester/">Um síðu</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
     </header>
-    <div>
+    <div class="pl-3 pr-3" style="flex:1;">
         {% block content %}
         {% endblock %}
     </div>
-    <footer> {% block footer %}<h3>Guðni Natan Gunnarsson, 2017{% if year > 2017 %} - {{year}} {% endif %}</h3>{% endblock %} </footer>
+    <footer class="p-2 mt-2 bg-primary text-white"> {% block footer %}<h4>Guðni Natan Gunnarsson, 2017{% if year > 2017 %} - {{year}} {% endif %}</h4>{% endblock %} </footer>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
