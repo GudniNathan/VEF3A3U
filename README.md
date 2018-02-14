@@ -5,4 +5,4 @@
 Endilega kíktu á [wiki-ið](https://github.com/GudniNatan/VEF3A3U/wiki/Home) fyrir tutorial!
 
 
-Live á https://gng.is/ - EDIT: Vefserver kominn niður.
+Live á https://gng.is/ 
