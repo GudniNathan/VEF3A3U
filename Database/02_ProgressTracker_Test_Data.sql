@@ -133,7 +133,7 @@ insert into Restrictors(courseNumber,restrictorID,restrictorType)values('KEST3CR
 insert into Restrictors(courseNumber,restrictorID,restrictorType)values('KEST3CS05FU','KEST3CR05EU',2);
 insert into Restrictors(courseNumber,restrictorID,restrictorType)values('KEST3CN05GU','KEST3CS05FU',2);
 
-
+/*
 insert into Students(firstName,lastName,dob,email,userName,userPassword,studentTrack,registerDate)
 values('Katrín','Jónsdóttir','2000-09-29','katarina@emil.com','stína-stuð',aes_encrypt('Q&dnZP78RR','xAklwzVY3Q?Jk'),9,'2017-08-01'),
 	  ('Árni','Sigurbjörnsson','1998-11-07','arnisig@fakemail.ru','arnisig',aes_encrypt('9mk3#d24?xZ','xAklwzVY3Q?Jk'),9,'2015-08-01'),
@@ -141,4 +141,4 @@ values('Katrín','Jónsdóttir','2000-09-29','katarina@emil.com','stína-stuð',
       ('Gunnar','Sigurðarson','1997-12-05','gusi@fakemail.eu','gunnsi',aes_encrypt('G!m89F&&vC','xAklwzVY3Q?Jk'),9,'2014-01-01'),
       ('Jón','Jónsson','2000-03-31','jojo@nomailatall.de','nonniboy',aes_encrypt('Ax49%x25B','xAklwzVY3Q?Jk'),9,'2017-08-01');
       
-      
+*/

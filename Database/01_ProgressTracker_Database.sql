@@ -93,15 +93,12 @@ create table TrackCourses
 create table Students
 (
 	studentID int auto_increment not null,                                                                                                                   
-    firstName varchar(45) not null,
-    lastName varchar(45) not null,
-    dob date not null,
-    email varchar(125) null,
-    userName varchar(15) not null,
-    userPassword blob,
+    userName char(10) not null,
+    userPassword varchar(255),
     studentTrack int not null,
     registerDate date null,
     constraint student_PK primary key(studentID),
+    constraint student_UK_userName unique key(userName),
     constraint student_track_FK foreign key(studentTrack) references Tracks(trackID)
 );
 

@@ -66,3 +66,6 @@ END//
 DELIMITER ;
 
 SELECT courseJSON();
+
+
+

@@ -3,24 +3,15 @@ drop procedure if exists NewStudent $$
 
 create procedure NewStudent
 (
-	first_name varchar(55),
-    last_name varchar(55),
-    date_of_birth date,
-    student_email varchar(95),
-    user_name varchar(15),
-    user_pass varchar(15),
-    student_track int,
-    out new_student_id int
+    user_name char(10),
+    user_pass varchar(255),
+    student_track int
 )
 begin
-	declare student_id int;
-    
-	insert into Students(firstName,lastName,dob,email,userName,userPassword,studentTrack,registerDate)
-	values(first_name,last_name,member_email,user_name,aes_encrypt(user_pass,'xAklwzVY3Q?Jk'),team,date(now()));
+  
+	insert into Students(userName,userPassword,studentTrack,registerDate)
+	values(user_name,user_pass,student_track,date(now()));
         
-	set student_id = last_insert_id();
-    
-    set new_student_id = student_id;
 end $$
 delimiter ;
 
@@ -28,12 +19,12 @@ delimiter ;
 delimiter $$
 drop procedure if exists SingleStudent $$
 
-create procedure SingleStudent(student_id int)
+create procedure SingleStudent(user_name int)
 begin
-	select S.studentID,S.firstName,S.lastName,S.dob,S.email,S.userName,S.registerDate,T.trackID,T.trackName 
+	select S.userName,S.registerDate,T.trackID,T.trackName 
     from Students S
     inner join Tracks T on S.studentTrack = T.trackID
-    and S.studentID = student_id;
+    and S.userName = user_name;
 end $$
 delimiter ;
 
@@ -43,7 +34,8 @@ drop procedure if exists StudentList $$
 
 create procedure StudentList()
 begin
-	select studentID,firstName,lastName,dob,email from Students order by firstName,lastName;
+	select S.userName, T.trackName from Students S
+    inner join Tracks T on S.studentTrack = T.trackID;
 end $$
 delimiter ;
 
@@ -53,23 +45,44 @@ drop procedure if exists UpdateStudent $$
 
 create procedure UpdateStudent
 (
-	student_id int,
-	first_name varchar(55),
-    last_name varchar(55),
-    date_of_birth date,
-    student_email varchar(95),
     user_name varchar(15),
     user_pass varchar(15),
     student_track int,
     out num_rows int
 )
 begin
-	if (select userPassword from Students where studentID = student_id) = aes_encrypt(user_pass,'xAklwzVY3Q?Jk') then
-		update Students
-        set firstName = first_name,lastName = last_name,dob = date_of_birth,email = student_email,studentTrack = student_track
-        where studentID = student_id;
+	update Students
+	set studentTrack = student_track, userPassword = user_pass
+	where userName = user_name;
         
-		set num_rows = row_count();
-	end if;
+	set num_rows = row_count();
 end $$
 delimiter ;
+
+
+
+DROP FUNCTION IF EXISTS getPass;
+DELIMITER //
+
+CREATE FUNCTION getPass(user_name char(10)) RETURNS TEXT
+BEGIN
+    RETURN(SELECT userPassword FROM Students WHERE userName = username);
+END//
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS updatePass;
+DELIMITER //
+
+CREATE PROCEDURE updatePass(user_name char(10), pass varchar(255))
+BEGIN
+    UPDATE Students
+		SET userPassword = pass
+        WHERE userName = user_name;
+END//
+
+DELIMITER ;
+
+Call NewStudent('1234567890', 'dfgjdifojgdoifg', 9);
+
+SELECT * FROM Tracks;
